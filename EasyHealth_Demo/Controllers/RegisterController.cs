@@ -8,5 +8,10 @@ namespace EasyHealth_Demo.Controllers
         {
             return View();
         }
+
+        public IActionResult ChooseAccount()
+        {
+            return View();
+        }
     }
 }

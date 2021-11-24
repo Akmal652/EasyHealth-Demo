@@ -15,7 +15,9 @@ namespace EasyHealth_Demo
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllersWithViews();
+            //add the session
+            services.AddSession();
             services.AddMvc();
             services.AddCors(c =>
             {
@@ -32,7 +34,7 @@ namespace EasyHealth_Demo
             }
 
             app.UseRouting();
-
+            app.UseSession();
             // global cors policy
             /*app.UseCors(x => x
                 .AllowAnyMethod()
