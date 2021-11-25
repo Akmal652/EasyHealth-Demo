@@ -4,7 +4,12 @@ namespace EasyHealth_Demo.Controllers
 {
     public class RegisterController : Controller
     {
-        public IActionResult CreateAccount()
+        public IActionResult ClientCreateAccount()
+        {
+            return View();
+        }
+
+        public IActionResult HospitalCreateAccount()
         {
             return View();
         }
@@ -12,6 +17,20 @@ namespace EasyHealth_Demo.Controllers
         public IActionResult ChooseAccount()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult GetAccountType()
+        {
+            var acctype = Request.Form["radioAccType"];
+            if (acctype == "client")
+            {
+                return Redirect("ClientCreateAccount");
+            }
+            else
+            {
+                return Redirect("HospitalCreateAccount");
+            }
         }
     }
 }

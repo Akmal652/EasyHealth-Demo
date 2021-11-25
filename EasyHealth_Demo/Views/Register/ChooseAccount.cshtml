@@ -8,6 +8,7 @@
     <div class="row">
         <div class="col">
             <div class="card align-items-center" style="display:flex; flex-direction: column; background: var(--white); border-radius: 20px; width: 700px; height:290px; padding: 20px 0px 20px 15px; box-shadow: 0 0 15px 15px rgba(0, 0, 0, 0.13); ">
+                <form method="post" action="/Register/GetAccountType">
                 <h2 style="font-weight:900; margin:10px 30px 10px 0;">Choose Account Type</h2>
                 <div class="radio-toolbar">
                     <input type="radio" id="radioClient" name="radioAccType" value="client" checked>
@@ -24,7 +25,8 @@
                         <span>Hospital</span>
                     </label>
                 </div>
-                <button class="button"><span>Next</span></button>
+                <button class="button" type="submit"><span>Next</span></button>
+                </form>
             </div>
         </div>
 
