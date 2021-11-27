@@ -32,5 +32,12 @@ namespace EasyHealth_Demo.Controllers
                 return Redirect("HospitalCreateAccount");
             }
         }
+
+        [HttpPost]
+
+        public IActionResult RegisterUserClient()
+        {
+
+        }
     }
 }
