@@ -6,8 +6,10 @@ namespace EasyHealth_Demo.Repository
     {
         Client GetClient(string Email);
 
-        void CheckLogin(string Email,string password);
+        void Register(bool verifyResult,RegisterModel register,Client client);
 
-        void VerifyClient(Client client);
+        bool CheckLogin(LoginModel model);
+
+        bool VerifyClient(RegisterModel register);
     }
 }

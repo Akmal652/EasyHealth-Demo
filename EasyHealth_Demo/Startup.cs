@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using EasyHealth_Demo.DBContexts;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 
 namespace EasyHealth_Demo
 {
@@ -19,6 +21,7 @@ namespace EasyHealth_Demo
             //add the session
             services.AddSession();
             services.AddMvc();
+            services.AddDbContext<ClientContext>(o => o.UseSqlServer(Configuration.GetConnectionString("USTDB")));
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());

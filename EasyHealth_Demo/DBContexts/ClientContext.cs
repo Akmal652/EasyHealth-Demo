@@ -14,6 +14,10 @@ namespace EasyHealth_Demo.DBContexts
         //dbset
         public DbSet<Client> Clients { get; set; }
 
+        public DbSet<LoginModel> CurrentUser { get; set; }
+
+        public DbSet<RegisterModel> registerRequest { get; set; }
+
         //Model Creating method
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
