@@ -18,6 +18,8 @@ namespace EasyHealth_Demo.DBContexts
 
         public DbSet<RegisterModel> registerRequest { get; set; }
 
+        public DbSet<LoginModel> CurrentLogin { get; set; }
+
         //Model Creating method
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +33,12 @@ namespace EasyHealth_Demo.DBContexts
                     Email = "andthen23@gmail.com",
                     PasswordHash = "$2a$12$ocDGfpobOAfJiFiG/Efs5e3kM1ZmqsJ2xsuTFD16UEUMkYACINlpq"
                 });
+
+            modelBuilder.Entity<LoginModel>(
+            eb =>
+            {
+                eb.HasNoKey();
+            });
         }
     }
 }

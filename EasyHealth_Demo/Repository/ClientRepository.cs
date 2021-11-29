@@ -11,9 +11,12 @@ namespace EasyHealth_Demo.Repository
         // create a object for productContext
         private readonly ClientContext _dbContext;
 
-        public ClientRepository(ClientContext dbContext)
+        private readonly Client _client;
+
+        public ClientRepository(ClientContext dbContext, Client client)
         {
             _dbContext = dbContext;
+            _client = client;
 
         }
 
@@ -26,35 +29,41 @@ namespace EasyHealth_Demo.Repository
 
         public bool CheckLogin(LoginModel model)
         {
-            var userAccount = GetClient(model.EmailEntered);
+            // get account from database
+            Client userFound = GetClient(model.EmailEntered);
 
-            if (userAccount == null && !BC.Verify(model.PasswordEntered, userAccount.PasswordHash))
+            // check account found and verify password
+            if (userFound == null && !BC.Verify(model.PasswordEntered, userFound.PasswordHash))
             {
+                // authentication failed
                 return false;
             }
             else
             {
+                // authentication successful
                 return true;
             }
         }
 
-        public void Register(bool verifyResult, RegisterModel register, Client client)
+        public void Register(RegisterModel register,out string message,out bool verifyResult, string phoneCountryExt)
         {
             verifyResult = VerifyClient(register);
 
             if (verifyResult == true)
             {
+                message = "Email exists, please register again using different email.";
                 return;
             }
             else
             {
-                client.FirstName = register.FirstName;
-                client.LastName = register.LastName;
-                client.PhoneNumber = register.PhoneNumber;
-                client.Email = register.Email;
-                client.PasswordHash = BC.HashPassword(register.Password);
-                _dbContext.Add(client);
+                _client.FirstName = register.FirstName;
+                _client.LastName = register.LastName;
+                _client.PhoneNumber = phoneCountryExt+register.PhoneNumber;
+                _client.Email = register.Email;
+                _client.PasswordHash = BC.HashPassword(register.Password);
+                _dbContext.Add(_client);
                 _dbContext.SaveChanges();
+                message = "Register succesful, please login using email and password registered.";
             }
         }
 
@@ -62,13 +71,16 @@ namespace EasyHealth_Demo.Repository
         {
             string emailCheck = register.Email;
 
-            var emailFound = _dbContext.Clients.Any(c => c.Email == emailCheck);
+            bool emailFound = _dbContext.Clients.Any(c => c.Email == emailCheck);
 
             if (emailFound == true)
             {
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

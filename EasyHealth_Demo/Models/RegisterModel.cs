@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace EasyHealth_Demo.Models
 {
+    [Keyless]
     public class RegisterModel
     {
         [Required]
@@ -18,7 +20,7 @@ namespace EasyHealth_Demo.Models
 
         [Required]
         [Phone]
-        [StringLength(10)]
+        [StringLength(20, MinimumLength = 10)]
         public string PhoneNumber { get; set; }
 
         [Required]

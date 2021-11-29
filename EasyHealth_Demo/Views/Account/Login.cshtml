@@ -1,0 +1,48 @@
+﻿@model EasyHealth_Demo.Models.LoginModel
+@{
+    ViewBag.Title = "EasyHealth Login";
+}
+
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem; box-shadow: 0 0 15px 15px rgba(0, 0, 0, 0.13);">
+                <div class="card-body p-5 text-center">
+                    <i class="bi bi-person-circle" style="font-size: 3em;"></i>
+                    <h3 class="mb-5"> Sign In </h3>
+                    @using (Html.BeginForm("LoginUserClient", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        <div class="form-outline mb-4">
+                            <input type="email" id="EmailEntered" name="EmailEntered" placeholder="Email" class="form-control form-control-lg" />
+                            <span class="text-danger">@Html.ValidationMessageFor(m=>m.EmailEntered)</span>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="password" id="PasswordEntered" name="PasswordEntered" placeholder="Password" class="form-control form-control-lg" />
+                            <span class="text-danger">@Html.ValidationMessageFor(m=>m.PasswordEntered)</span>
+                        </div>
+
+                        <!-- Checkbox -->
+                        <div class="form-check d-flex justify-content-start mb-4">
+                            <input class="form-check-input"
+                               type="checkbox"
+                               value=""
+                               id="form1Example3" />
+                            <label class="form-check-label" for="form1Example3">&nbsp;Remember Password </label>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                    }
+                    <hr />
+
+                    <p class="text-decoration-none">Not Registered? <a href="@Url.Action("ChooseAccount", "Account")" class="text-decoration-underline">
+                    <span>Create an account!</span>
+                </a></p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

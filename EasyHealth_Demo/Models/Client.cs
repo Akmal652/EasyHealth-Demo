@@ -22,7 +22,7 @@ namespace EasyHealth_Demo.Models
 
         [Required]
         [Phone]
-        [StringLength(10)]
+        [StringLength(20, MinimumLength = 10)]
         public string PhoneNumber { get; set; }
 
         [Required]

@@ -6,7 +6,7 @@ namespace EasyHealth_Demo.Repository
     {
         Client GetClient(string Email);
 
-        void Register(bool verifyResult,RegisterModel register,Client client);
+        void Register(RegisterModel register,out string message,out bool verifyResult, string phoneCountyExt);
 
         bool CheckLogin(LoginModel model);
 

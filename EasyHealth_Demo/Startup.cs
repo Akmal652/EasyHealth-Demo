@@ -1,6 +1,8 @@
 ﻿using EasyHealth_Demo.DBContexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using EasyHealth_Demo.Repository;
+using EasyHealth_Demo.Models;
 
 namespace EasyHealth_Demo
 {
@@ -19,14 +21,14 @@ namespace EasyHealth_Demo
 
             services.AddControllersWithViews();
             //add the session
-            services.AddSession();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
+            });
             services.AddMvc();
             services.AddDbContext<ClientContext>(o => o.UseSqlServer(Configuration.GetConnectionString("USTDB")));
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            });
-            
+            services.AddTransient<IClientRepository, ClientRepository>();
+            services.AddTransient<Client, Client>();
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
