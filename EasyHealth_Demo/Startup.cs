@@ -26,8 +26,10 @@ namespace EasyHealth_Demo
             });
             services.AddMvc();
             services.AddDbContext<ClientContext>(o => o.UseSqlServer(Configuration.GetConnectionString("USTDB")));
-            services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<Client, Client>();
+            services.AddTransient<Admin, Admin>();
+            services.AddTransient<IClientRepository, ClientRepository>();
+            services.AddTransient<IAdminRepository, AdminRepository>();
 
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

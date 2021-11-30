@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewBag.Title = "Choose Account Type";
 }
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
@@ -9,7 +10,7 @@
         <div class="col">
             <div class="card align-items-center" style="display:flex; flex-direction: column; background: var(--white); border-radius: 20px; width: 700px; height:290px; padding: 20px 0px 20px 15px; box-shadow: 0 0 15px 15px rgba(0, 0, 0, 0.13); ">
                 <form method="post" action="/Account/GetAccountType">
-                <h2 style="font-weight:900; margin:10px 0px 10px 30px; ">Choose Account Type</h2>
+                <h2 style="font-weight:900; margin:10px 0px 10px 35px; ">Choose Account Type</h2>
                 <div class="radio-toolbar">
                     <input type="radio" id="radioClient" name="radioAccType" value="client" checked>
                     <label class="btn" for="radioClient">
@@ -18,11 +19,11 @@
                         <span>Client</span>
                     </label>
 
-                    <input type="radio" id="radioHospital" name="radioAccType" value="hospital">
+                    <input type="radio" id="radioHospital" name="radioAccType" value="admin">
                     <label class="btn" for="radioHospital">
                         <i class="fas fa-hospital">
                         </i>
-                        <span>Hospital</span>
+                        <span>Admin</span>
                     </label>
                 </div>
                 <button class="button" type="submit"><span>Next</span></button>

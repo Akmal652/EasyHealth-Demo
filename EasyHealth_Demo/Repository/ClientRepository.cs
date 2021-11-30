@@ -27,21 +27,29 @@ namespace EasyHealth_Demo.Repository
             return selectedClient;
         }
 
-        public bool CheckLogin(LoginModel model)
+        public bool CheckLogin(LoginModel model,out string checkLoginMessage)
         {
             // get account from database
             Client userFound = GetClient(model.EmailEntered);
 
             // check account found and verify password
-            if (userFound == null && !BC.Verify(model.PasswordEntered, userFound.PasswordHash))
+            if (userFound != null && BC.Verify(model.PasswordEntered, userFound.PasswordHash))
             {
+                checkLoginMessage="";
+                // authentication successful
+                return true;
+            }
+            else if (userFound != null && !BC.Verify(model.PasswordEntered, userFound.PasswordHash))
+            {
+                checkLoginMessage = "Password entered is incorrect.";
                 // authentication failed
                 return false;
             }
             else
             {
-                // authentication successful
-                return true;
+                checkLoginMessage = null;
+                // authentication failed
+                return false;
             }
         }
 

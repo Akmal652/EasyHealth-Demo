@@ -7,18 +7,28 @@ using System.Linq;
 
 namespace EasyHealth_Demo.DBContexts
 {
-    public class ClientContext:DbContext
+    public class ClientContext : DbContext
     {
         public ClientContext(DbContextOptions<ClientContext> options) : base(options) { }
 
         //dbset
         public DbSet<Client> Clients { get; set; }
 
+        public DbSet<Admin> Admins { get; set; }
+
         public DbSet<LoginModel> CurrentUser { get; set; }
 
         public DbSet<RegisterModel> registerRequest { get; set; }
 
-        public DbSet<LoginModel> CurrentLogin { get; set; }
+        public DbSet<RegisterAdminModel> registerAdminRequest { get; set; }
+
+        public DbSet<Hospital> Hospitals { get; set; }
+
+        public DbSet<Doctor> Doctors { get; set; }
+
+        public DbSet<Appointment> Appointments { get; set; }
+
+        public DbSet<ClientReview> ClientReviews { get; set; }
 
         //Model Creating method
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +49,43 @@ namespace EasyHealth_Demo.DBContexts
             {
                 eb.HasNoKey();
             });
+
+            modelBuilder.Entity<Doctor>()
+                .HasOne(a => a.Hospital)
+                .WithOne(b => b.Doctor)
+                .HasForeignKey<Doctor>(b => b.HospitalId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ClientReview>()
+                .HasOne(a => a.Client)
+                .WithOne(b => b.ClientReview)
+                .HasForeignKey<ClientReview>(b => b.ClientId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ClientReview>()
+                .HasOne(a => a.Doctor)
+                .WithOne(b => b.ClientReview)
+                .HasForeignKey<ClientReview>(b => b.DoctorId)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Client)
+                .WithOne(b => b.Appointment)
+                .HasForeignKey<Appointment>(b => b.ClientId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Doctor)
+                .WithOne(b => b.Appointment)
+                .HasForeignKey<Appointment>(b => b.DoctorId)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Hospital)
+                .WithOne(b => b.Appointment)
+                .HasForeignKey<Appointment>(b => b.HospitalId)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
         }
     }
 }

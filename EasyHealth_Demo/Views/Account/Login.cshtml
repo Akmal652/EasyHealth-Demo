@@ -12,6 +12,7 @@
                     <h3 class="mb-5"> Sign In </h3>
                     @using (Html.BeginForm("LoginUserClient", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
+                        @Html.AntiForgeryToken()
                         <div class="form-outline mb-4">
                             <input type="email" id="EmailEntered" name="EmailEntered" placeholder="Email" class="form-control form-control-lg" />
                             <span class="text-danger">@Html.ValidationMessageFor(m=>m.EmailEntered)</span>
@@ -35,9 +36,11 @@
                     }
                     <hr />
 
-                    <p class="text-decoration-none">Not Registered? <a href="@Url.Action("ChooseAccount", "Account")" class="text-decoration-underline">
-                    <span>Create an account!</span>
-                </a></p>
+                    <p class="text-decoration-none">
+                        Not Registered? <a href="@Url.Action("ChooseAccount", "Account")" class="text-decoration-underline">
+                            <span>Create an account!</span>
+                        </a>
+                    </p>
 
 
 

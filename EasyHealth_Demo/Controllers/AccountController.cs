@@ -8,9 +8,13 @@ namespace EasyHealth_Demo.Controllers
     {
         //create instance of IClient Repos
         private readonly IClientRepository _clientRepository;
-        public AccountController(IClientRepository clientRepository)
+
+        //create instance of IAdmin Repos
+        private readonly IAdminRepository _adminRepository;
+        public AccountController(IClientRepository clientRepository, IAdminRepository adminRepository)
         {
             _clientRepository = clientRepository;
+            _adminRepository = adminRepository;
         }
         public IActionResult Login()
         {
@@ -21,7 +25,7 @@ namespace EasyHealth_Demo.Controllers
             return View();
         }
 
-        public IActionResult HospitalCreateAccount()
+        public IActionResult AdminCreateAccount()
         {
             return View();
         }
@@ -41,7 +45,7 @@ namespace EasyHealth_Demo.Controllers
             }
             else
             {
-                return Redirect("HospitalCreateAccount");
+                return Redirect("AdminCreateAccount");
             }
         }
 
@@ -51,16 +55,48 @@ namespace EasyHealth_Demo.Controllers
             string registerResult;
             bool emailVerifyResult;
             string phoneNoExt = Request.Form["testSelect"];
-            _clientRepository.Register(register, out registerResult, out emailVerifyResult,phoneNoExt);
-
-            if (emailVerifyResult == true)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError(nameof(register.Email), registerResult);
-                return View("ClientCreateAccount",register);
+                _clientRepository.Register(register, out registerResult, out emailVerifyResult, phoneNoExt);
+
+                if (emailVerifyResult == true)
+                {
+                    ModelState.AddModelError(nameof(register.Email), registerResult);
+                    return View("ClientCreateAccount", register);
+                }
+                else
+                {
+                    return Redirect("Login");
+                }
             }
             else
             {
-                return Redirect("Login");
+                return View("ClientCreateAccount", register);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult RegisterUserAdmin(RegisterAdminModel register)
+        {
+            string registerResult;
+            bool emailVerifyResult;
+            if (ModelState.IsValid)
+            {
+                _adminRepository.RegisterAdmin(register, out registerResult, out emailVerifyResult);
+
+                if (emailVerifyResult == true)
+                {
+                    ModelState.AddModelError(nameof(register.AdminEmailEntered), registerResult);
+                    return View("AdminCreateAccount", register);
+                }
+                else
+                {
+                    return Redirect("Login");
+                }
+            }
+            else
+            {
+                return View("AdminCreateAccount", register);
             }
         }
 
@@ -68,22 +104,54 @@ namespace EasyHealth_Demo.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult LoginUserClient(LoginModel login)
         {
+            string AuthenticateMessage;
+
             if (ModelState.IsValid)
             {
-                if (_clientRepository.CheckLogin(login))
+                if (_clientRepository.CheckLogin(login,out AuthenticateMessage))
                 {
                     HttpContext.Session.SetString("Email", login.EmailEntered);
                     return RedirectToAction("Index", "Home");
                 }
+                else if (_clientRepository.CheckLogin(login, out AuthenticateMessage)==false && AuthenticateMessage != null)
+                {
+                    ModelState.AddModelError(nameof(login.PasswordEntered), AuthenticateMessage);
+                    return View("Login", login);
+                }
                 else
                 {
                     ModelState.AddModelError(nameof(login.EmailEntered), "Email not found or matched");
-                    return View(login);
+                    return View("Login", login);
                 }
             }
             return View("Login", login);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult LoginUserAdmin(LoginModel login)
+        {
+            string AuthenticateMessage;
 
+            if (ModelState.IsValid)
+            {
+                if (_adminRepository.CheckAdminLogin(login, out AuthenticateMessage))
+                {
+                    HttpContext.Session.SetString("Email", login.EmailEntered);
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (_adminRepository.CheckAdminLogin(login, out AuthenticateMessage) == false && AuthenticateMessage != null)
+                {
+                    ModelState.AddModelError(nameof(login.PasswordEntered), AuthenticateMessage);
+                    return View("Login", login);
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(login.EmailEntered), "Email not found or matched");
+                    return View("Login", login);
+                }
+            }
+            return View("Login", login);
         }
 
         [HttpGet]

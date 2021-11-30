@@ -2,22 +2,20 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewBag.Title = "Create Account | Admin";
 }
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+
 <div class="row justify-content-center align-items-center min-vh-100">
 <div class="card shadow-2-strong" style="width: 30rem; height: auto; border-radius: 1rem; box-shadow: 0 0 15px 15px rgba(0, 0, 0, 0.13);">
-    <h4 class="card-title mt-3 text-center" style=" margin: 30px auto 30px auto; ">Create Account | Hospital</h4>
+    <h4 class="card-title mt-3 text-center" style=" margin: 30px auto 30px auto; ">Create Account | Admin</h4>
     <form class="row g-3 justify-content-center align-items-center">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         <div class="col-9">
             <div class="input-group mb-2">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                 </div>
-                <input name="" class="form-control" placeholder="Hospital Admin Email Address" type="email">
+                <input id="AdminEmailEntered" name="AdminEmailEntered" class="form-control" placeholder="Admin Email Address" type="email">
             </div>
         </div>
         <div class="col-9">
@@ -25,7 +23,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                 </div>
-                <input name="" class="form-control" placeholder="Create Password" type="password">
+                <input id="AdminPassword" name="AdminPassword" class="form-control" placeholder="Create Password" type="password">
             </div>
         </div>
         <div class="col-9">
@@ -33,14 +31,16 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                 </div>
-                <input name="" class="form-control" placeholder="Re-enter Password" type="password">
+                <input id="ConfirmAdminPassword" name="ConfirmAdminPassword" class="form-control" placeholder="Re-enter Password" type="password">
             </div>
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary">Create Account</button>
         </div>
    
-        <p class="text-center">Have an account? <a href="">Log In</a> </p>
+        <p class="text-center">Have an account? <a href="@Url.Action("Login", "Account")" class="elements">
+                    <span>Log In</span>
+                </a> </p>
     </form>
 </div> <!-- card.// -->
 </div>

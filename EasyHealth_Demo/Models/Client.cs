@@ -33,5 +33,9 @@ namespace EasyHealth_Demo.Models
         [Required]
         [StringLength(100)]
         public string PasswordHash { get; set; }
+
+        public ClientReview ClientReview { get; set; }
+
+        public Appointment Appointment { get; set; }
     }
 }

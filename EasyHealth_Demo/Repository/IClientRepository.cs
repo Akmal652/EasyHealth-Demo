@@ -8,7 +8,7 @@ namespace EasyHealth_Demo.Repository
 
         void Register(RegisterModel register,out string message,out bool verifyResult, string phoneCountyExt);
 
-        bool CheckLogin(LoginModel model);
+        bool CheckLogin(LoginModel model,out string checkLoginMessage);
 
         bool VerifyClient(RegisterModel register);
     }
