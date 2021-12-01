@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyHealth_Demo.Migrations
 {
     [DbContext(typeof(ClientContext))]
-    [Migration("20211130094715_SixthUpdate")]
-    partial class SixthUpdate
+    [Migration("20211201062121_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
