@@ -1,0 +1,92 @@
+﻿@model EasyHealth_Demo.Models.Hospital
+
+@{
+    ViewData["Title"] = "Add New Hospital";
+}
+<div class="container">
+    <div class="row min-vh-100">
+        <div class="col d-flex justify-content-center">
+            <div class="card shadow-2-strong " style="width: 30rem; height: auto; border-radius: 1rem; box-shadow: 0 0 15px 15px rgba(0, 0, 0, 0.13); display:flex; justify-content:center;">
+                <div class="card-header">
+                    <h4 class="card-title mt-3 text-center" style=" margin: 30px auto 30px auto; font-weight:900; margin:10px 0px 10px 0px;">New Hospital Form</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-9">
+                            <div class="form-floating">
+                                <input asp-for="HospitalName" class="form-control" style="width:390px; margin: 30px auto 30px auto;" placeholder="Hospital Name" />
+                                <label asp-for="HospitalName" class="control-label">Hospital Name</label>
+                                <span asp-validation-for="HospitalName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-floating">
+                                <input asp-for="FirstconsultationFee" class="form-control" style="width:300px; margin-bottom:30px;" placeholder="First Consulation's Fee Amount" />
+                                <label asp-for="FirstconsultationFee" class="control-label">First Consulation's Fee Amount</label>
+                                <span asp-validation-for="FirstconsultationFee" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-floating">
+                                <input asp-for="FollowupconsultationFee" class="form-control" style="width:300px; margin-bottom:30px;" placeholder="Follow Up Consulation's Fee Amount" />
+                                <label asp-for="FollowupconsultationFee" class="control-label">Follow Up Consultation's Fee Amount</label>
+                                <span asp-validation-for="FollowupconsultationFee" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-floating">
+                                <input asp-for="StreetAddress" class="form-control" style="width:390px; margin-bottom:30px;" placeholder="Street Address" />
+                                <label asp-for="StreetAddress" class="control-label">Street Address</label>
+                                <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-floating">
+                                <input asp-for="City" class="form-control" style="margin-bottom:30px;" placeholder="City" />
+                                <label asp-for="City" class="control-label">City</label>
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-floating">
+                                <input asp-for="State" class="form-control" style="margin-bottom:30px;" placeholder="State" />
+                                <label asp-for="State" class="control-label">State</label>
+                                <span asp-validation-for="State" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-floating">
+                                <input asp-for="Country" class="form-control" style="margin-bottom:30px;" placeholder="Country" />
+                                <label asp-for="Country" class="control-label">Country</label>
+                                <span asp-validation-for="Country" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-floating">
+                                <input asp-for="Pincode" class="form-control" style="margin-bottom:30px;" placeholder="Pincode" />
+                                <label asp-for="Pincode" class="control-label">Pincode</label>
+                                <span asp-validation-for="Pincode" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-center"><a asp-action="Index">Back to List</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
